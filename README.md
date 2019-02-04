@@ -1,2 +1,2 @@
-# git-release-tasks
-Scripts to programmatically help with GitHub releases
+# git-assistant
+Scripts to programmatically help with GitHub tasks
