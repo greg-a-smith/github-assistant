@@ -1,0 +1,26 @@
+language: node_js
+node_js: 10.15.0
+cache: npm
+dist: trusty
+script:
+- npm run build
+jobs:
+  include:
+  - stage: Lint and Test
+    script: npm run lint && npm run test
+  - stage: Pre-release
+    if: branch = master
+    deploy:
+    - provider: script
+      script: bash ./ci-scripts/publish-rc.sh
+      skip_cleanup: true
+  - stage: Release
+    if: branch = do_not_use_release_branch
+    deploy:
+    - provider: script
+      script: bash ./ci-scripts/publish.sh
+      skip_cleanup: true
+notifications:
+  email:
+    on_failure: always
+    on_success: change
