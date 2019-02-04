@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -e
+
 git config --global user.email "greg.smith03@sap.com"
 git config --global user.name "Greg Smith"
 
