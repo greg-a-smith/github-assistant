@@ -8,8 +8,9 @@
     "scripts": {
         "build": "rm -rf lib && NODE_ENV=production babel src --out-dir lib",
         "lint": "eslint 'src/**' --ext .js --env node",
+        "lint:pre-commit": "printf \"running pre-commit lint...\"  && npm run lint && printf \"done!\n\"",
         "release": "./scripts/publish-release.sh",
-        "release:create": "npm run build && ./lib/create-release.js",
+        "release:create": "./lib/create-release.js",
         "std-version": "standard-version -m \"chore(release): version %s build ${TRAVIS_BUILD_NUMBER} [ci skip]\"",
         "test": "echo \"No tests defined\""
     },
@@ -31,10 +32,18 @@
         "babel-cli": "^6.26.0",
         "babel-eslint": "^10.0.1",
         "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015": "^6.24.1",
         "babel-preset-stage-0": "^6.24.1",
         "dir-babel": "^1.0.14",
         "eslint": "^5.13.0",
         "pre-commit": "^1.2.2",
         "standard-version": "^4.4.0"
+    },
+    "pre-commit": {
+        "colors": true,
+        "run": [
+            "lint:pre-commit"
+        ],
+        "silent": false
     }
 }
