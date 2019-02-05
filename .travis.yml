@@ -24,6 +24,8 @@ jobs:
     - provider: script
       script: bash ./ci-scripts/publish.sh
       skip_cleanup: true
+      on:
+        all_branches: true
 notifications:
   email:
     on_failure: always
