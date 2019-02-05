@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/greg-a-smith/github-assistant/compare/v0.2.0-rc.5...v0.2.0) (2019-02-05)
+
+
+
 <a name="0.2.0-rc.5"></a>
 # [0.2.0-rc.5](https://github.com/greg-a-smith/github-assistant/compare/v0.2.0-rc.4...v0.2.0-rc.5) (2019-02-05)
 
