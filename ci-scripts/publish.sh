@@ -5,6 +5,8 @@ set -e
 git config --global user.email "greg.smith03@sap.com"
 git config --global user.name "Greg Smith"
 
+git checkout master
+
 # delete temp branch
 git push "https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG" ":$TRAVIS_BRANCH"
 
