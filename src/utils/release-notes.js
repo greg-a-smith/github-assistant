@@ -1,21 +1,13 @@
-/* eslint-disable no-console */
-
-let isDebug = false;
-
-const logDebug = (label, ...args) => {
-    if (isDebug) {
-        console.log(`\n${label}:\n`, ...args);
-    }
-};
+import log from 'loglevel';
 
 const buildCommitMessage = (commit, pullRequests) => {
     const template = (msg, sha, url, prNumber, prUrl) => {
-        logDebug('Template', msg, sha, url, prNumber, prUrl);
+        log.debug('\nTemplate\n', msg, sha, url, prNumber, prUrl);
         return `${msg}${prNumber ? ` ([#${prNumber}](${prUrl}))` : ''} ([${sha}](${url}))`;
     };
 
     let message = commit.message;
-    logDebug('Raw Message', message);
+    log.debug('\nRaw Message\n', message);
     let pos = message.indexOf(':');
     if (pos !== -1) {
         message = message.substring(pos + 1).trim();
@@ -55,7 +47,7 @@ const buildMessages = (commits, pullRequests) => {
         }
     });
 
-    logDebug('Messages', messages);
+    log.debug('\nMessages\n', messages);
     return messages;
 };
 
@@ -95,7 +87,7 @@ const getCommits = (ghRepo, tag, prerelease) =>
             for (let i = 1; i < commits.length; i++) {
                 sha = commits[i].sha;
                 const message = commits[i].commit.message;
-                logDebug('Raw Commit Message', message);
+                log.debug('\nRaw Commit Message\n', message);
 
                 // continue gathering commit messages until the previous version commit is found
                 if (message.match(getVerionCommitRegEx(prerelease))) {
@@ -121,8 +113,10 @@ const getCommits = (ghRepo, tag, prerelease) =>
                 });
             }
 
-            if (!foundPreviousVersionCommit) {
-                logDebug('Making recursive call - filtered commits count:', filteredCommits.length);
+            // if the number of commits is 0 or 1, we have exhausted ALL commits
+            // so it's time to return regardless of whether we found a match or not
+            if (!foundPreviousVersionCommit && commits.length > 1) {
+                log.debug('Making recursive call - filtered commits count:', filteredCommits.length);
                 return getCommits(ghRepo, sha, prerelease)
                     .then(moreCommits => filteredCommits.concat(moreCommits));
             }
@@ -130,7 +124,7 @@ const getCommits = (ghRepo, tag, prerelease) =>
             return filteredCommits;
         })
         .catch(e => {
-            console.error(e);
+            log.error(e);
         });
 
 const getPullRequest = (ghRepo, prNumber) =>
@@ -139,31 +133,31 @@ const getPullRequest = (ghRepo, prNumber) =>
             return { [`pr_${resp.data.number}`]: resp.data.html_url };
         })
         .catch(e => {
-            console.error(e);
+            log.error(e);
         });
 
-module.exports = (ghRepo, { tag, prerelease = false, debug = false }) => {
-    isDebug = debug;
-    logDebug('Arguments', tag, prerelease, debug);
+export default (ghRepo, { tag, prerelease = false, debug = false }) => {
+    log.setLevel(debug ? 'debug' : 'info');
+    log.debug('Arguments:', tag, prerelease, debug);
 
     return getCommits(ghRepo, tag, prerelease)
         .then(commits => {
-            logDebug('Commits', commits);
+            log.debug('\nCommits\n', commits);
             return Promise.all(commits.filter(commit => !!commit.prNumber).map(commit =>  // eslint-disable-line
                 getPullRequest(ghRepo, commit.prNumber)
             ))
                 .then(pullRequests => {
-                    logDebug('Pull Requests', pullRequests);
+                    log.debug('\nPull Requests\n', pullRequests);
                     let pullRequestLookup = {};
                     pullRequests.forEach(pullRequest => {
                         Object.assign(pullRequestLookup, pullRequest);
                     });
 
-                    logDebug('Pull Request Object', pullRequestLookup);
+                    log.debug('\nPull Request Object\n', pullRequestLookup);
                     return buildReleaseNotes(buildMessages(commits, pullRequestLookup));
                 });
         })
         .catch(e => {
-            console.error(e);
+            log.error(e);
         });
 };
