@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0-rc.0"></a>
+# [0.3.0-rc.0](https://github.com/greg-a-smith/github-assistant/compare/v0.2.0...v0.3.0-rc.0) (2019-04-05)
+
+
+### Features
+
+* Added Documentation section to release notes ([#2](https://github.com/greg-a-smith/github-assistant/issues/2)) ([9263fae](https://github.com/greg-a-smith/github-assistant/commit/9263fae))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/greg-a-smith/github-assistant/compare/v0.2.0-rc.5...v0.2.0) (2019-02-05)
 
