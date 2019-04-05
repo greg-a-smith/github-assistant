@@ -31,10 +31,11 @@ const buildCommitMessage = (commit, pullRequests) => {
     );
 };
 
-const buildMessages = (commits, pullRequests) => {
+const buildMessages = (commits, pullRequests, hideDocs) => {
     let messages = {
         features: [],
-        fixes: []
+        fixes: [],
+        docs: []
     };
 
     commits.forEach(commit => {
@@ -44,6 +45,10 @@ const buildMessages = (commits, pullRequests) => {
 
         if (commit.message.match(/^feat/)) {
             messages.features.push(buildCommitMessage(commit, pullRequests));
+        }
+
+        if (!hideDocs && commit.message.match(/^docs/)) {
+            messages.docs.push(buildCommitMessage(commit, pullRequests));
         }
     });
 
@@ -62,6 +67,11 @@ const buildReleaseNotes = (messages) => {
     if (messages.fixes.length > 0) {
         notes.push('\n### Bug Fixes\n');
         notes = notes.concat(messages.fixes.map(msg => `* ${msg}`));
+    }
+
+    if (messages.docs.length > 0) {
+        notes.push('\n### Documentation\n');
+        notes = notes.concat(messages.docs.map(msg => `* ${msg}`));
     }
 
     return notes.join('\n');
@@ -136,9 +146,9 @@ const getPullRequest = (ghRepo, prNumber) =>
             log.error(e);
         });
 
-export default (ghRepo, { tag, prerelease = false, debug = false }) => {
+export default (ghRepo, { tag, prerelease = false, hideDocs = false, debug = false }) => {
     log.setLevel(debug ? 'debug' : 'info');
-    log.debug('Arguments:', tag, prerelease, debug);
+    log.debug('Arguments:', tag, prerelease, hideDocs, debug);
 
     return getCommits(ghRepo, tag, prerelease)
         .then(commits => {
@@ -154,7 +164,7 @@ export default (ghRepo, { tag, prerelease = false, debug = false }) => {
                     });
 
                     log.debug('\nPull Request Object\n', pullRequestLookup);
-                    return buildReleaseNotes(buildMessages(commits, pullRequestLookup));
+                    return buildReleaseNotes(buildMessages(commits, pullRequestLookup, hideDocs));
                 });
         })
         .catch(e => {
