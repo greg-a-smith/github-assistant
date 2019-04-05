@@ -1,5 +1,11 @@
 # GitHub Assistant
 
+[![npm version](https://badge.fury.io/js/github-assistant.svg)](//www.npmjs.com/package/github-assistant)
+[![Minified Size](https://badgen.net/bundlephobia/min/github-assistant)](https://bundlephobia.com/result?p=github-assistant)
+[![Minzipped Size](https://badgen.net/bundlephobia/minzip/github-assistant)](https://bundlephobia.com/result?p=github-assistant)
+[![Build Status](https://travis-ci.org/SAP/github-assistant.svg?branch=master)](https://travis-ci.org/SAP/github-assistant)
+
+
 Scripts to programmatically help with GitHub tasks.
 
 ## Getting Started
