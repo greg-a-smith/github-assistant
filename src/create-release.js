@@ -37,6 +37,11 @@ const argv = require('yargs')
         type: 'boolean',
         'default': false
     })
+    .option('hide-docs', {
+        description: 'Omit Documentation section from the release notes',
+        type: 'boolean',
+        'default': false
+    })
     .option('dry-run', {
         description: 'Skip the creation of the release on GitHub, but do everything else',
         type: 'boolean',
