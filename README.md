@@ -5,7 +5,7 @@
 
 Scripts to programmatically help with GitHub tasks.
 
-## Getting Started
+## Install
 
 Install and add to `devDependencies`
 ```
@@ -46,4 +46,3 @@ Options:
   --debug, -d         Turn on console messages        [boolean] [default: false]
   --help              Show help                                        [boolean]
   ```
-  
