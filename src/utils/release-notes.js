@@ -86,7 +86,7 @@ const getVerionCommitRegEx = (prerelease) => {
 };
 
 const getCommits = (ghRepo, tag, prerelease) =>
-    ghRepo.listCommits({ sha: tag })
+    ghRepo.listCommits()
         .then(resp => {
             const commits = (!Array.isArray(resp.data) ? [resp.data] : resp.data);
             let filteredCommits = [];
