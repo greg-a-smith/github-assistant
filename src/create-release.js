@@ -70,10 +70,14 @@ releaseNotes(ghRepo, argv)
     .then(notes => {
         log.info('\nRelease Notes:\n', notes);
         if (!argv['dry-run']) {
+            let tag = argv.tag;
+            if (tag.charAt(0) !== 'v') {
+                tag = `v${tag}`;
+            }
             ghRepo.createRelease({
-                'tag_name': argv.tag,
+                'tag_name': tag,
                 'target_commitish': argv.branch,
-                'name': `Release ${argv.tag}`,
+                'name': `Release ${tag}`,
                 'body': notes,
                 'prerelease': argv.prerelease
             })
