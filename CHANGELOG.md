@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.1-rc.0"></a>
+## [0.3.1-rc.0](https://github.com/greg-a-smith/github-assistant/compare/v0.3.0...v0.3.1-rc.0) (2020-04-18)
+
+
+### Bug Fixes
+
+* update create-release script to handle tags without "v" ([#5](https://github.com/greg-a-smith/github-assistant/issues/5)) ([ee8f0d1](https://github.com/greg-a-smith/github-assistant/commit/ee8f0d1))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/greg-a-smith/github-assistant/compare/v0.3.0-rc.3...v0.3.0) (2019-04-05)
 
