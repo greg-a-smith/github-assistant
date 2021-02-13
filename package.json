@@ -11,7 +11,7 @@
     "lint:pre-commit": "printf \"running pre-commit lint...\"  && npm run lint && printf \"done!\n\"",
     "release": "./scripts/publish-release.sh",
     "release:create": "./lib/create-release.js",
-    "std-version": "standard-version --releaseCommitMessageFormat \"chore(release): version %s build ${TRAVIS_BUILD_NUMBER} [ci skip]\"",
+    "std-version": "standard-version --releaseCommitMessageFormat \"chore(release): version {{currentTag}} build ${TRAVIS_BUILD_NUMBER} [ci skip]\"",
     "test": "echo \"No tests defined\""
   },
   "repository": {
