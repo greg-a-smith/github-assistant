@@ -3,7 +3,8 @@
   "version": "0.3.1",
   "description": "Scripts to programmatically help with GitHub tasks",
   "bin": {
-    "create-release": "./lib/create-release.js"
+    "create-release": "./lib/create-release.js",
+    "publish-gh-pages": "./lib/publish-gh-pages.js"
   },
   "scripts": {
     "build": "rimraf lib && NODE_ENV=production babel src --out-dir lib",
@@ -25,8 +26,14 @@
   },
   "homepage": "https://github.com/greg-a-smith/github-assistant#readme",
   "dependencies": {
+    "git-url-parse": "^11.4.4",
     "github-api": "^3.3.0",
     "loglevel": "^1.6.1",
+    "ncp": "^2.0.0",
+    "pug": "^3.0.0",
+    "remote-origin-url": "^2.0.0",
+    "semver": "^7.3.4",
+    "tmp-promise": "^3.0.2",
     "yargs": "^12.0.5"
   },
   "devDependencies": {
@@ -37,7 +44,7 @@
     "dir-babel": "^1.0.14",
     "eslint": "^6.8.0",
     "pre-commit": "^1.2.2",
-    "rimraf": "^2.6.1",
+    "rimraf": "^2.7.1",
     "standard-version": "^9.0.0"
   },
   "pre-commit": {
