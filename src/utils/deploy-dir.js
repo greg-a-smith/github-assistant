@@ -124,11 +124,11 @@ export default async(options) => {
         }
 
         await exec(`git commit -m "Pushed ${destination}"`);
-        // if (noHistory) {
-        //     await exec(`git push --force -u origin ${branch}`);
-        // } else {
-        //     await exec(`git push -u origin ${branch}`);
-        // }
+        if (noHistory) {
+            await exec(`git push --force -u origin ${branch}`);
+        } else {
+            await exec(`git push -u origin ${branch}`);
+        }
         log.debug(`pushed modifications to ${remote}:${branch}`);
         const gitInfo = gitUrlParse(remote);
         if (gitInfo && gitInfo.source === 'github.com') {
