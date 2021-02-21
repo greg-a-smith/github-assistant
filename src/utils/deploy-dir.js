@@ -15,6 +15,8 @@ const execPromise = util.promisify(execFunc);
 const ncpPromise = util.promisify(ncp);
 const rimrafPromise = util.promisify(rimraf);
 
+const VERSION_FILE = 'version.txt';
+
 export default async(options) => {
     const {
         source,
@@ -82,28 +84,29 @@ export default async(options) => {
     // read package.json file to get version information
     const packageJsonContents = fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8');
     const packageJson = JSON.parse(packageJsonContents);
-    const versionPath = path.resolve(tmpDir, destination, 'version.txt');
+    const versionPath = path.resolve(tmpDir, destination, VERSION_FILE);
     fs.writeFileSync(versionPath, packageJson?.version);
     log.debug(`written ${versionPath}`);
 
     log.debug(`create index.html file that lists the directories in branch ${branch} from template ${template}`);
     const regex = new RegExp(directoryRegex);
-    // const dirs = (await readdir(tmpDir)).filter((directory) => directory.indexOf('.') !== 0 && directory !== 'index.html').sort();
-    const dirs = fs.readdirSync(tmpDir, { withFileTypes: true })
+    const dirList = fs.readdirSync(tmpDir, { withFileTypes: true })
         .filter((f) => f.isDirectory() && f.name?.match(regex));
-    log.debug(`\ndirs = ${JSON.stringify(dirs)}\n`);
+    log.debug(`\ndirList = ${JSON.stringify(dirList)}\n`);
 
-    // loop through dirs and grab version information for each
-    dirs.forEach((d) => {
+    // loop through dirList and grab version information for each
+    dirList.forEach((d) => {
         try {
-            const versionFile = path.resolve(tmpDir, d.name, 'version.txt');
+            const versionFile = path.resolve(tmpDir, d.name, VERSION_FILE);
             fs.accessSync(versionFile, fs.constants.F_OK);
             d.version = fs.readFileSync(versionFile, 'utf8');
         } catch (e) {
             d.version = '';
         }
     });
-    log.debug(`sorted dirs = ${JSON.stringify(semverSort(dirs, sortDesc))}\n`);
+
+    const dirs = semverSort(dirList, sortDesc);
+    log.debug(`sorted dirs = ${JSON.stringify(dirs)}\n`);
 
     const compiledTemplate = pug.compile(fs.readFileSync(template, 'utf8'));
     const fullTemplatePath = path.resolve(tmpDir, 'index.html');
