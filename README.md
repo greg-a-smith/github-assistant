@@ -46,3 +46,4 @@ Options:
   --debug, -d         Turn on console messages        [boolean] [default: false]
   --help              Show help                                        [boolean]
   ```
+
