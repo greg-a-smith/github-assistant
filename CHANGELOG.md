@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/greg-a-smith/github-assistant/compare/v0.3.4-rc.0...v0.3.4) (2022-08-20)
+
 ### [0.3.4-rc.0](https://github.com/greg-a-smith/github-assistant/compare/v0.3.3...v0.3.4-rc.0) (2022-08-20)
 
 
