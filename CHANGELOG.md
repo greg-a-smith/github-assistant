@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4-rc.0](https://github.com/greg-a-smith/github-assistant/compare/v0.3.3...v0.3.4-rc.0) (2022-08-20)
+
+
+### Features
+
+* Upgrade dependencies ([#23](https://github.com/greg-a-smith/github-assistant/issues/23)) ([bc0f6c0](https://github.com/greg-a-smith/github-assistant/commit/bc0f6c0bb5e2d9cfe77b1b4afbe0e12bbf82ac62))
+
 ### [0.3.3](https://github.com/greg-a-smith/github-assistant/compare/v0.3.3-rc.0...v0.3.3) (2021-03-24)
 
 ### [0.3.3-rc.0](https://github.com/greg-a-smith/github-assistant/compare/v0.3.2...v0.3.3-rc.0) (2021-03-24)
